@@ -1,0 +1,17 @@
+# Versions recorded in the run metadata (metadata/preprocessing_report.json
+# and config/pid_config.json). Python 3.12.13.
+numpy==2.0.2
+pandas==2.2.2
+scikit-learn==1.6.1
+scipy==1.16.3
+ecos==2.0.14
+
+# BROJA-2PID 1.0.1, installed from its source repository:
+#   https://github.com/Abzinger/BROJA_2PID
+# It is not distributed on PyPI, so it is not pinned here.
+
+# xgboost and shap are required to rerun the analysis. Their versions were not
+# recorded in the run metadata and are therefore deliberately left unpinned
+# rather than stated from assumption.
+xgboost
+shap

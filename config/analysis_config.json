@@ -1,0 +1,138 @@
+{
+  "_source": "Every field below is taken verbatim from metadata/preprocessing_report.json, config/pid_config.json, or the deposited result files; nothing is inferred.",
+  "run_id": "2026-07-26",
+  "created_at": "2026-07-26T23:48:45",
+  "analysis_hash": "0d1bfe98f36d910688c1c2f76526302ba90d6c5b7b203afa8fa9a8bb282059a2",
+  "cohort": {
+    "discovery": "TCGA-BRCA",
+    "n_patients": 677,
+    "class_counts": {
+      "Basal": 118,
+      "Her2": 64,
+      "LumA": 322,
+      "LumB": 154,
+      "Normal": 19
+    },
+    "allowed_sample_type_codes": [
+      "01"
+    ],
+    "duplicate_rule": "first_sorted"
+  },
+  "layers": [
+    "mutations",
+    "cnv",
+    "mrna",
+    "rppa"
+  ],
+  "n_panels_evaluated": 15,
+  "classifiers": [
+    "RF",
+    "XGB",
+    "SVM"
+  ],
+  "resampling": {
+    "cv_folds": 5,
+    "cv_repeats": 10,
+    "n_splits": 50,
+    "seed": 42,
+    "model_seed_mode": "repeat",
+    "partitions_file": "config/cv_splits.json"
+  },
+  "preprocessing": {
+    "mrna_scale": "log2(TPM + 1)",
+    "mrna_apply_log_transform": false,
+    "filter_stat": "mad",
+    "filter_top_k": 5000,
+    "min_variance": 1e-06,
+    "mutation_frequency_bounds": [
+      0.01,
+      0.99
+    ],
+    "rppa_max_missing": 0.2,
+    "rppa_imputer": "knn",
+    "rppa_knn_k": 5,
+    "dim_mode": "fixed_k",
+    "components_per_layer": 50,
+    "fitted_within_training_folds_only": true
+  },
+  "models": {
+    "hyperparameters_fixed_a_priori": true,
+    "hyperparameter_search": false,
+    "nested_cross_validation": false,
+    "fixed_model_hyperparameters": {
+      "random_forest": {
+        "n_estimators": 500,
+        "max_features": "sqrt",
+        "min_samples_leaf": 2,
+        "n_jobs": -1
+      },
+      "xgboost": {
+        "n_estimators": 500,
+        "max_depth": 4,
+        "learning_rate": 0.03,
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "reg_lambda": 1.0,
+        "reg_alpha": 0.0,
+        "min_child_weight": 1.0,
+        "n_jobs": -1
+      },
+      "svm": {
+        "C": 1.0,
+        "kernel": "rbf",
+        "gamma": "scale",
+        "class_weight": "balanced",
+        "probability": false
+      }
+    }
+  },
+  "inference": {
+    "primary_metric": "balanced_accuracy",
+    "unit_of_inference": "cross-validation repetition",
+    "n_repetitions": 10,
+    "sign_flip_test": "exact, two-sided, 2^10 = 1024 sign assignments",
+    "rank_correlation_test": "exact, 6! = 720 orderings",
+    "repeat_bootstrap_replicates": 10000,
+    "patient_cluster_bootstrap_replicates": 1000,
+    "bootstrap_convergence_points": [
+      50,
+      100,
+      250,
+      500,
+      1000
+    ],
+    "multiplicity_correction": "Benjamini-Hochberg, family stated per analysis",
+    "non_inferiority_margin": 0.03,
+    "metric_match_tolerance": 0.0001,
+    "strict_metric_match": true
+  },
+  "information_decomposition": {
+    "applied_to": "out-of-fold categorical predictions of the four single-layer models",
+    "estimators": {
+      "I_min": "Williams-Beer specific-information redundancy",
+      "BROJA": "BROJA-2PID exponential-cone estimator"
+    },
+    "broja": {
+      "package_version": "1.0.1",
+      "ecos_version": "2.0.14",
+      "abstol": 1e-09,
+      "reltol": 1e-09,
+      "feastol": 1e-09,
+      "max_iters": 1000,
+      "max_numerical_error_for_validity": 1e-06,
+      "max_decomposition_residual_for_validity": 1e-05
+    },
+    "bootstrap_estimand": "pooled-repeat prediction-level PID with stratified patient-cluster resampling"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+    "numpy": "2.0.2",
+    "pandas": "2.2.2",
+    "scikit_learn": "1.6.1",
+    "scipy": "1.16.3",
+    "broja_2pid": "1.0.1",
+    "ecos": "2.0.14",
+    "_note": "Versions of xgboost and shap were not recorded in the run metadata and are therefore not listed."
+  }
+}

@@ -1,0 +1,7 @@
+test,estimator,redundancy,unique_a,unique_b,synergy,mi_joint,residual,valid,solver_status
+redundant_copy,I_min,1.0,0.0,0.0,0.0,1.0,0.0,True,analytic
+redundant_copy,BROJA,1.0000000006012408,-3.0062043473678406e-10,-3.0062043473678406e-10,0.0,1.0,3.457702445161191e-17,True,valid
+xor,I_min,0.0,0.0,0.0,1.0,1.0,0.0,True,analytic
+xor,BROJA,1.5935209251612166e-10,-5.916944983711695e-11,-5.916944983711695e-11,0.9999999999589868,1.0,0.0,True,valid
+two_bit_copy,I_min,1.0,0.0,0.0,1.0,2.0,0.0,True,analytic
+two_bit_copy,BROJA,3.4370817303397416e-10,0.9999999998281459,0.9999999998281459,0.0,2.0,0.0,True,valid

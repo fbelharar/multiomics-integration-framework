@@ -1,0 +1,69 @@
+{
+  "run_dir": "<run directory>",
+  "seed": 42,
+  "model_seed_mode": "repeat",
+  "layers": [
+    "mutations",
+    "cnv",
+    "mrna",
+    "rppa"
+  ],
+  "classifiers": [
+    "RF",
+    "XGB",
+    "SVM"
+  ],
+  "fixed_model_hyperparameters": {
+    "random_forest": {
+      "n_estimators": 500,
+      "max_features": "sqrt",
+      "min_samples_leaf": 2,
+      "n_jobs": -1
+    },
+    "xgboost": {
+      "n_estimators": 500,
+      "max_depth": 4,
+      "learning_rate": 0.03,
+      "subsample": 0.85,
+      "colsample_bytree": 0.85,
+      "reg_lambda": 1.0,
+      "reg_alpha": 0.0,
+      "min_child_weight": 1.0,
+      "n_jobs": -1
+    },
+    "svm": {
+      "C": 1.0,
+      "kernel": "rbf",
+      "gamma": "scale",
+      "class_weight": "balanced",
+      "probability": false
+    }
+  },
+  "metric_match_tolerance": 0.0001,
+  "strict_metric_match": true,
+  "repeat_bootstrap_replicates": 10000,
+  "patient_cluster_bootstrap_replicates": 1000,
+  "bootstrap_convergence_points": [
+    50,
+    100,
+    250,
+    500,
+    1000
+  ],
+  "broja": {
+    "package_version": "1.0.1",
+    "ecos_version": "2.0.14",
+    "abstol": 1e-09,
+    "reltol": 1e-09,
+    "feastol": 1e-09,
+    "max_iters": 1000,
+    "max_numerical_error_for_validity": 1e-06,
+    "max_decomposition_residual_for_validity": 1e-05
+  },
+  "estimators": {
+    "I_min": "Williams-Beer specific-information redundancy",
+    "BROJA": "BROJA-2PID exponential-cone estimator"
+  },
+  "bootstrap_estimand": "pooled-repeat prediction-level PID with stratified patient-cluster resampling",
+  "analysis_hash": "0d1bfe98f36d910688c1c2f76526302ba90d6c5b7b203afa8fa9a8bb282059a2"
+}

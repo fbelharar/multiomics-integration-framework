@@ -1,0 +1,183 @@
+{
+  "run_id": "2026-07-26",
+  "created_at": "2026-07-26T23:48:45",
+  "config": {
+    "cv_folds": 5,
+    "cv_repeats": 10,
+    "seed": 42,
+    "allowed_sample_type_codes": [
+      "01"
+    ],
+    "duplicate_rule": "first_sorted",
+    "filter_stat": "mad",
+    "filter_top_k": 5000,
+    "min_variance": 1e-06,
+    "mut_freq_lo": 0.01,
+    "mut_freq_hi": 0.99,
+    "rppa_max_missing": 0.2,
+    "rppa_imputer": "knn",
+    "rppa_knn_k": 5,
+    "dim_mode": "fixed_k",
+    "dim_k": 50,
+    "dim_variance_target": 0.8,
+    "dim_k_max": 120,
+    "mrna_scale": "log2(TPM + 1)",
+    "mrna_apply_log_transform": false,
+    "cache_save_every": 5
+  },
+  "environment": {
+    "python": "3.12.13",
+    "platform": "Linux-6.6.122+-x86_64-with-glibc2.35",
+    "numpy": "2.0.2",
+    "pandas": "2.2.2",
+    "sklearn": "1.6.1",
+    "scipy": "1.16.3"
+  },
+  "inputs": {
+    "mrna_xena_star_tpm": {
+      "path": "TCGA-BRCA.star_tpm.tsv.gz",
+      "size_bytes": 342300776,
+      "sha256": "d14b127a98e71e4aef15196bdee0f6b0c4d5a236a61fbc7b99ae7e825ed052cc"
+    },
+    "cnv": {
+      "path": "Gistic2_CopyNumber_Gistic2_all_data_by_genes.gz",
+      "size_bytes": 2484676,
+      "sha256": "6943018718659fcca9d6c3c25ddb8b83c04d3bfeffb78c93085dbbbf0fa036e1"
+    },
+    "rppa": {
+      "path": "RPPA_RBN.gz",
+      "size_bytes": 740774,
+      "sha256": "7823a7a375495f7e5f114d0c7ec8773e070cb9ac409785f98045d12ab71195e6"
+    },
+    "mutations_clinical_archive": {
+      "path": "brca_tcga_pan_can_atlas_2018.tar.gz",
+      "size_bytes": 503123564,
+      "sha256": "76fcfcaa83098c26315e353dab11d018c24411509d218d845e9a2ebfc026d8cd"
+    },
+    "ensembl_to_hugo_mapping": {
+      "path": "ensembl_to_hugo_mapping.json",
+      "size_bytes": 1362189,
+      "sha256": "590b55a49f1735e54e1bfc6cf818b5bc47151b1f1fb355e49fcf2e0c57a79308"
+    },
+    "mrna_hugo_mapped_primary_only": {
+      "path": "mrna_hugo_mapped_primary_only.parquet",
+      "size_bytes": 292681438,
+      "sha256": "a9c682a0cae0c8dc5db3d0429fadf1979385a38fd53b8ba8e110ed22be16d187"
+    }
+  },
+  "mrna": {
+    "source": "UCSC Xena GDC STAR-TPM matrix",
+    "declared_scale": "log2(TPM + 1)",
+    "log_transform_applied_in_this_script": false,
+    "scale_audit": {
+      "min": 0.0,
+      "median": 0.1900458868944387,
+      "p95": 6.098531148053792,
+      "p99": 8.073861579533666,
+      "max": 18.78925718376024,
+      "fraction_zero": 0.4017004833427973
+    },
+    "pam50_genes_present": 50
+  },
+  "cohort": {
+    "n_patients": 677,
+    "classes": {
+      "Basal": 118,
+      "Her2": 64,
+      "LumA": 322,
+      "LumB": 154,
+      "Normal": 19
+    },
+    "layers": {
+      "mutations": {
+        "n_patients": 677,
+        "n_features": 16432
+      },
+      "cnv": {
+        "n_patients": 677,
+        "n_features": 24776
+      },
+      "mrna": {
+        "n_patients": 677,
+        "n_features": 44292
+      },
+      "rppa": {
+        "n_patients": 677,
+        "n_features": 131
+      }
+    }
+  },
+  "cross_layer_aliquot_concordance_complete_cohort": {
+    "n_patients": 677,
+    "n_four_layer_evaluable": 677,
+    "n_four_layer_concordant": 0,
+    "concordance_rate_percent": 0.0
+  },
+  "cross_validation": {
+    "folds": 5,
+    "repeats": 10,
+    "n_splits": 50
+  },
+  "representation_summary": [
+    {
+      "layer": "mutations",
+      "features_median": 1641,
+      "features_min": 1186,
+      "features_max": 1810,
+      "components_median": 50,
+      "components_min": 50,
+      "components_max": 50,
+      "retained_variance_mean": 0.48807246239978114,
+      "retained_variance_sd": 0.016723366537155178
+    },
+    {
+      "layer": "cnv",
+      "features_median": 5000,
+      "features_min": 5000,
+      "features_max": 5000,
+      "components_median": 50,
+      "components_min": 50,
+      "components_max": 50,
+      "retained_variance_mean": 0.9235341492468134,
+      "retained_variance_sd": 0.002250149329199022
+    },
+    {
+      "layer": "mrna",
+      "features_median": 5000,
+      "features_min": 5000,
+      "features_max": 5000,
+      "components_median": 50,
+      "components_min": 50,
+      "components_max": 50,
+      "retained_variance_mean": 0.6683563462245294,
+      "retained_variance_sd": 0.002006893703701703
+    },
+    {
+      "layer": "rppa",
+      "features_median": 131,
+      "features_min": 131,
+      "features_max": 131,
+      "components_median": 50,
+      "components_min": 50,
+      "components_max": 50,
+      "retained_variance_mean": 0.8714259885836568,
+      "retained_variance_sd": 0.0012330593270659447
+    }
+  ],
+  "variance_target_misses": {},
+  "design_notes": [
+    "Only TCGA primary solid tumor samples (sample type code 01) are retained for all four omics layers.",
+    "One primary barcode per patient and per layer is selected deterministically using the alphabetically first barcode.",
+    "Cross-layer aliquot concordance is audited rather than enforced, because identical sample suffixes across platforms are not guaranteed.",
+    "The mRNA source is a UCSC Xena STAR-TPM matrix already expressed as log2(TPM + 1); no additional logarithmic transformation is applied.",
+    "Presence of all 50 PAM50 genes is asserted after mRNA reconstruction and when reloading the mRNA cache.",
+    "All data-dependent preprocessing is fitted exclusively on training rows.",
+    "The same layer representation is reused unchanged across all single- and multi-omics combinations within each split.",
+    "The primary analysis uses fixed-k=50 components per layer.",
+    "A fixed-variance representation is reserved for sensitivity analysis.",
+    "mRNA and CNV filtering is unsupervised and based on training-fold MAD.",
+    "PAM50 labels are not used for feature selection or dimensionality reduction.",
+    "Checkpoints are invalidated if either the configuration or any input file SHA-256 changes.",
+    "Defensive checks reject exact barcode duplicates and non-finite matrices."
+  ]
+}
